@@ -1,6 +1,17 @@
+import { useContext } from 'react';
 import type { CartItem } from '../types/types';
+import { CartContext } from '../contexts/cart-context';
 
 export const ItemCart = ({name, price, quantity}: CartItem) => {
+
+  const {cartItems, setCartItems} = useContext(CartContext);
+
+  const handleDelete = () => {
+    const updatedItems = cartItems.filter(item => item.name !== name)
+    setCartItems(updatedItems);
+  }
+
+
   return (
     <div className='flex justify-between items-center border border-transparent border-b-Rose-300 text-sm py-4'>
       <div>
@@ -12,7 +23,8 @@ export const ItemCart = ({name, price, quantity}: CartItem) => {
         </div>
       </div>
       <img
-        className='border size-[18px] rounded-full p-0.5 border-Rose-400'
+      onClick={handleDelete}
+        className='border size-[18px] rounded-full p-0.5 border-Rose-400 cursor-pointer'
         src='../../public/assets/images/icon-remove-item.svg'
         alt=''
       />

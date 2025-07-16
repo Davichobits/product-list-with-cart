@@ -8,6 +8,8 @@ import { CartContext } from './contexts/cart-context.ts';
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  console.log('APP: ', cartItems)
+
   return (
     <CartContext value={{ cartItems, setCartItems }}>
       <main className='flex justify-center'>

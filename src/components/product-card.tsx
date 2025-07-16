@@ -7,7 +7,7 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
   const {cartItems, setCartItems} = useContext(CartContext);
   const isFirstRender = useRef(true)
 
-  console.log('cartItems', cartItems);
+  console.log('quantity', quantity);
   
   
   const addOneItem = () => {
@@ -17,16 +17,17 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
   const subtractOneItem = () => {
     setQuantity(quantity - 1);
   };
-
+  let updatedCart: CartItem[] = [...cartItems]
+  const currentItem = updatedCart.filter(item => item.name === name);
+  
   useEffect(()=>{
+    // Not to render the last value
     if(isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-    let updatedCart: CartItem[] = [...cartItems]
+        isFirstRender.current = false
+        return
+      }
   
     // Buscar si el item ya existe
-    const currentItem = updatedCart.filter(item => item.name === name);
     console.log('current item: ', currentItem)
     if (currentItem.length === 0){  
       console.log('agregar', name)
@@ -37,11 +38,17 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
       }]
     } else{
       console.log('editar')
-      updatedCart.map(item => {
-        if(item.name === name){
-          item.quantity = quantity
-        }
-      })
+
+      if(currentItem[0].quantity === 0){
+        updatedCart = updatedCart.filter(item => item.name !== name);
+      }else{
+        updatedCart.map(item => {
+          if(item.name === name){
+            item.quantity = quantity
+          }
+        })
+      }
+
       updatedCart = [...updatedCart]
     }
     setCartItems(updatedCart)
