@@ -1,12 +1,14 @@
-export const ItemCart = () => {
+import type { CartItem } from '../types/types';
+
+export const ItemCart = ({name, price, quantity}: CartItem) => {
   return (
     <div className='flex justify-between items-center border border-transparent border-b-Rose-300 text-sm py-4'>
       <div>
-        <h3 className='text-Rose-900 font-semibold mb-2'>Classic Tiramisu</h3>
+        <h3 className='text-Rose-900 font-semibold mb-2'>{name}</h3>
         <div className='flex gap-2'>
-          <p className='text-Red font-semibold'>1x</p>
-          <p className='text-Rose-500'>@$5.50</p>
-          <p className='font-semibold text-Rose-500'>$5.50</p>
+          <p className='text-Red font-semibold'>{quantity}x</p>
+          <p className='text-Rose-500'>@${price}</p>
+          <p className='font-semibold text-Rose-500'>${quantity * price}</p>
         </div>
       </div>
       <img

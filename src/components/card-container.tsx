@@ -7,7 +7,7 @@ export const CardContainer = () => {
   return (
     <section className='flex flex-col gap-6 mb-8'>
       {
-        data.map((item: Product) => <ProductCard {...item} /> )
+        data.map((item: Product) => <ProductCard key={item.name} {...item} /> )
       }
     </section>
   )
