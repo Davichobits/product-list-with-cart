@@ -1,43 +1,31 @@
 import type { Product } from '../types/types';
-import { useContext} from 'react';
-import { CartContext } from '../contexts/cart-context';
+import { useCartStore } from '../store/cart.store';
 
 export const ProductCard = ({ image, category, name, price, itemQuantity }: Product) => {
-  // const [quantity, setQuantity] = useState(itemQuantity);
-  const {cartItems, setCartItems} = useContext(CartContext);
+
+  const {products, updateProducts } = useCartStore()
   
   const addOneItem = () => {
     // setQuantity(quantity + 1);
-    const updatedItems = cartItems.map(item => {
+    const updatedItems = products.map(item => {
       if(item.name === name){
         item.itemQuantity = itemQuantity + 1
       }
       return item
     })
-    setCartItems(updatedItems)
+    updateProducts(updatedItems)
   };
 
   const subtractOneItem = () => {
     // setQuantity(quantity - 1);
-    const updatedItems = cartItems.map(item => {
+    const updatedItems = products.map(item => {
       if(item.name === name){
         item.itemQuantity = itemQuantity - 1
       }
       return item
     })
-    setCartItems(updatedItems)
+    updateProducts(updatedItems)
   };
-  
-  // useEffect(()=>{
-  //   const updatedItems = cartItems.map(item => {
-  //     if(item.name === name){
-  //       item.itemQuantity = quantity
-  //     }
-  //     return item
-  //   })
-    
-  //   setCartItems(updatedItems)
-  // },[quantity])
 
   return (
     <div className='relative'>
@@ -64,14 +52,14 @@ export const ProductCard = ({ image, category, name, price, itemQuantity }: Prod
           <img
             onClick={subtractOneItem}
             className='cursor-pointer border border-Rose-50 size-[18px] rounded-full p-1'
-            src='../../public/assets/images/icon-decrement-quantity.svg'
+            src='/assets/images/icon-decrement-quantity.svg'
             alt='icon-decrement-quantity'
           />
           <p className='font-semibold text-sm'>{itemQuantity}</p>
           <img
             onClick={addOneItem}
             className='cursor-pointer border border-Rose-50 size-[18px] rounded-full p-1'
-            src='../../public/assets/images/icon-increment-quantity.svg'
+            src='/assets/images/icon-increment-quantity.svg'
             alt='icon-decrement-quantity'
           />
         </div>

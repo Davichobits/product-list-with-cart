@@ -1,20 +1,19 @@
 import { ItemCart } from './item-cart'
-import { useContext } from 'react'
-import { CartContext } from '../contexts/cart-context'
+import { useCartStore } from '../store/cart.store';
 import type { Product } from '../types/types'
 
 export const Cart = () => {
 
-  const {cartItems} = useContext(CartContext);
+  const {products } = useCartStore()
 
-  const total = cartItems.reduce((sum:number, item: Product) => sum + (item.price * item.itemQuantity), 0 )
+  const total = products.reduce((sum:number, item: Product) => sum + (item.price * item.itemQuantity), 0 )
 
   return (
     <div className='bg-Rose-50 rounded-xl p-6'>
-      <h2 className='text-2xl text-Red font-bold mb-6'>Your Cart ({cartItems.length})</h2>
+      <h2 className='text-2xl text-Red font-bold mb-6'>Your Cart ({products.filter(items => items.itemQuantity > 0).length})</h2>
 
         {
-          cartItems.map(item => {
+          products.map(item => {
           if(item.itemQuantity > 0){
             return <ItemCart key={item.name} {...item} />
           }

@@ -1,19 +1,18 @@
-import { useContext } from 'react';
 import type { Product } from '../types/types';
-import { CartContext } from '../contexts/cart-context';
+import { useCartStore } from '../store/cart.store';
 
 export const ItemCart = ({name, price, itemQuantity}: Product) => {
 
-  const {cartItems, setCartItems} = useContext(CartContext);
+  const {products, updateProducts } = useCartStore()
 
   const handleDelete = () => {
-    const updatedItems = cartItems.map(item => {
+    const updatedItems = products.map(item => {
       if(item.name === name){
         item.itemQuantity = 0;
       }
       return item
     })
-    setCartItems(updatedItems);
+    updateProducts(updatedItems);
   }
 
 
@@ -30,7 +29,7 @@ export const ItemCart = ({name, price, itemQuantity}: Product) => {
       <img
       onClick={handleDelete}
         className='border size-[18px] rounded-full p-0.5 border-Rose-400 cursor-pointer'
-        src='../../public/assets/images/icon-remove-item.svg'
+        src='/assets/images/icon-remove-item.svg'
         alt=''
       />
     </div>
