@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import type { CartItem } from './types/types.ts';
+import type { Product } from './types/types.ts';
 
 import { CardContainer } from './components/card-container';
 import { Cart } from './components/cart';
 import { CartContext } from './contexts/cart-context.ts';
 
 function App() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
 
   console.log('APP: ', cartItems)
 

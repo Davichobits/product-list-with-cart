@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import type { CartItem } from '../types/types';
+import type { Product } from '../types/types';
 
 interface CartContext {
-  cartItems: CartItem[];
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  cartItems: Product[];
+  setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
 export const CartContext = createContext<CartContext>({
