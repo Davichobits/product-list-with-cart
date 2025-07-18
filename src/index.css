@@ -17,6 +17,8 @@
   --color-Rose-400: hsl(7, 20%, 60%);
   --color-Rose-500: hsl(12, 20%, 44%);
   --color-Rose-900: hsl(14, 65%, 9%);
+
+  --breakpoint-desktop: 90rem;
 }
 
 body{
