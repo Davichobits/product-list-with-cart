@@ -1,19 +1,34 @@
 import { create } from 'zustand';
-import data from '../../data.json'
+import data from '../../data.json';
 
-import type { Product } from '../types/types';
+import type { Product, CartItem } from '../types/types';
 
 interface Store {
   products: Product[];
-  updateProducts: (newProducts: Product[]) => void;
+  cart: CartItem[];
+  addItemToCart: (newItem: CartItem) => void;
+  updateItemInCart: (updatedItem: CartItem) => void;
+  deleteItemFromCart: (itemToDelete: CartItem) => void;
 }
 
-const dataWithQuantity: Product[] = data.map(item=> ({
-  ...item,
-  itemQuantity: 0
-}));
+export const useCartStore = create<Store>((set) => ({
+  products: data,
 
-export const useCartStore = create<Store>((set)=>({
-  products: dataWithQuantity,
-  updateProducts: (newProducts: Product[]) => set(()=>({products:newProducts}))
-}))
+  cart: [],
+
+  addItemToCart: (newItem: CartItem) =>
+    set((state) => ({ cart: [...state.cart, newItem] })),
+
+  updateItemInCart: (updatedItem: CartItem) =>
+    set((state) => ({
+      cart: state.cart.map((cartItem) => {
+        return cartItem.name === updatedItem.name
+          ? { ...updatedItem }
+          : cartItem;
+      }),
+    })),
+  
+  deleteItemFromCart: (itemToDelete) => set((state)=>({
+    cart: state.cart.filter(item=> item.name !== itemToDelete.name)
+  })), 
+}));

@@ -1,18 +1,18 @@
-import type { Product } from '../types/types';
-import { useCartStore } from '../store/cart.store';
+import type { CartItem } from '../types/types';
+// import { useCartStore } from '../store/cart.store';
 
-export const ItemCart = ({name, price, itemQuantity}: Product) => {
+export const ItemCart = ({name, price, quantity}: CartItem) => {
 
-  const {products, updateProducts } = useCartStore()
+  // const {products, addProductToCart: updateProducts } = useCartStore()
 
   const handleDelete = () => {
-    const updatedItems = products.map(item => {
-      if(item.name === name){
-        item.itemQuantity = 0;
-      }
-      return item
-    })
-    updateProducts(updatedItems);
+    // const updatedItems = products.map(item => {
+    //   if(item.name === name){
+    //     item.itemQuantity = 0;
+    //   }
+    //   return item
+    // })
+    // updateProducts(updatedItems);
   }
 
 
@@ -21,9 +21,9 @@ export const ItemCart = ({name, price, itemQuantity}: Product) => {
       <div>
         <h3 className='text-Rose-900 font-semibold mb-2'>{name}</h3>
         <div className='flex gap-2'>
-          <p className='text-Red font-semibold'>{itemQuantity}x</p>
+          <p className='text-Red font-semibold'>{quantity}x</p>
           <p className='text-Rose-500'>@${price}</p>
-          <p className='font-semibold text-Rose-500'>${itemQuantity * price}</p>
+          <p className='font-semibold text-Rose-500'>${quantity * price}</p>
         </div>
       </div>
       <img
