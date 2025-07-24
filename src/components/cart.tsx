@@ -3,9 +3,7 @@ import { useCartStore } from '../store/cart.store';
 
 export const Cart = () => {
 
-  const {cart } = useCartStore()
-
-  // const total = products.reduce((sum:number, item: Product) => sum + (item.price * item.itemQuantity), 0 )
+  const {cart, toggleShowConfirmation } = useCartStore()
 
   return (
     <div className='bg-Rose-50 rounded-xl p-6'>
@@ -27,7 +25,7 @@ export const Cart = () => {
         <img src="/assets/images/icon-carbon-neutral.svg" alt="icon-carbon-neutral" />
         <p className='text-sm'>This is a <span className='font-bold'>carbon-neutral</span> delivery</p>
       </div>
-      <button className='bg-Red text-Rose-50 p-4 rounded-full w-full'>
+      <button onClick={toggleShowConfirmation} className='bg-Red text-Rose-50 p-4 rounded-full w-full'>
         Confirm Order
       </button>
     </div>

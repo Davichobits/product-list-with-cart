@@ -1,5 +1,6 @@
 import { CardContainer } from './components/card-container';
 import { Cart } from './components/cart';
+import { CartConfirmation } from './components/cart-confirmation';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Cart />
           </div>
         </section>
+        <CartConfirmation />
       </main>
     
   );

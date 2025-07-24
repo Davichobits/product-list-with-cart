@@ -35,9 +35,7 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
         image, name, price, quantity: newQuantity
       })
     } else {
-      deleteItemFromCart({
-        image, name, price, quantity: newQuantity
-      })
+      deleteItemFromCart(name)
     }
 
   };

@@ -4,14 +4,17 @@ import data from '../../data.json';
 import type { Product, CartItem } from '../types/types';
 
 interface Store {
+  showConfirmation: boolean;
   products: Product[];
   cart: CartItem[];
   addItemToCart: (newItem: CartItem) => void;
   updateItemInCart: (updatedItem: CartItem) => void;
-  deleteItemFromCart: (itemToDelete: CartItem) => void;
+  deleteItemFromCart: (name: string) => void;
+  toggleShowConfirmation: () => void;
 }
 
 export const useCartStore = create<Store>((set) => ({
+  showConfirmation: false,
   products: data,
 
   cart: [],
@@ -28,7 +31,11 @@ export const useCartStore = create<Store>((set) => ({
       }),
     })),
   
-  deleteItemFromCart: (itemToDelete) => set((state)=>({
-    cart: state.cart.filter(item=> item.name !== itemToDelete.name)
+  deleteItemFromCart: (name) => set((state)=>({
+    cart: state.cart.filter(item=> item.name !== name)
   })), 
+
+  toggleShowConfirmation: () => set((state)=>({
+    showConfirmation: !state.showConfirmation,
+  }))
 }));

@@ -1,18 +1,12 @@
 import type { CartItem } from '../types/types';
-// import { useCartStore } from '../store/cart.store';
+import { useCartStore } from '../store/cart.store';
 
 export const ItemCart = ({name, price, quantity}: CartItem) => {
 
-  // const {products, addProductToCart: updateProducts } = useCartStore()
+  const {deleteItemFromCart } = useCartStore()
 
   const handleDelete = () => {
-    // const updatedItems = products.map(item => {
-    //   if(item.name === name){
-    //     item.itemQuantity = 0;
-    //   }
-    //   return item
-    // })
-    // updateProducts(updatedItems);
+    deleteItemFromCart(name)
   }
 
 
