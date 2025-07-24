@@ -88,7 +88,7 @@ export const ProductCard = ({ image, category, name, price}: Product) => {
       )}
       <p className='text-Rose-500 text-sm'>{category}</p>
       <h2 className='font-semibold'>{name}</h2>
-      <p className='text-Red font-semibold'>${price}</p>
+      <p className='text-Red font-semibold'>${price.toFixed(2)}</p>
     </div>
   );
 };
