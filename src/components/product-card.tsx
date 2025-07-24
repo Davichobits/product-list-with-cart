@@ -1,34 +1,43 @@
 import type { Product } from '../types/types';
 import { useCartStore } from '../store/cart.store';
-import { useState } from 'react';
+// import { useState } from 'react';
 
-export const ProductCard = ({ image, category, name, price }: Product) => {
+export const ProductCard = ({ image, category, name, price}: Product) => {
 
-  const [quantity, setQuantity] = useState(0)
+  const { addItemToCart, updateItemInCart, deleteItemFromCart, cart } = useCartStore()
 
-  const { addItemToCart, updateItemInCart, deleteItemFromCart } = useCartStore()
+  let productQuantity: number = 0;
+
+  const currentCart = cart.filter(cartItem => cartItem.name === name);
+
+  if(currentCart.length > 0){
+    productQuantity = currentCart[0].quantity;
+  }
+
+  // const [productQuantity, setProductQuantity] = useState(0)
+
 
   const addProduct = () =>{
 
-    const newQuantity = quantity + 1
+    const newQuantity = productQuantity + 1
 
-    setQuantity(quantity + 1);
+    // setProductQuantity(productQuantity + 1);
     addItemToCart({
       image, name, price, quantity: newQuantity
     })
   }
   
   const addOneItem = () => {
-    const newQuantity = quantity + 1
-    setQuantity(newQuantity);
+    const newQuantity = productQuantity + 1
+    // setProductQuantity(newQuantity);
     updateItemInCart({
       image, name, price, quantity: newQuantity
     })
   };
 
   const subtractOneItem = () => {
-    const newQuantity = quantity - 1
-    setQuantity(newQuantity);
+    const newQuantity = productQuantity - 1
+    // setProductQuantity(newQuantity);
 
     if(newQuantity > 0) {
       updateItemInCart({
@@ -46,13 +55,13 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
         <source media='(min-width: 1440px)' srcSet={image.desktop} />
         <source media='(min-width: 768px)' srcSet={image.tablet} />
         <img
-          className={`rounded-lg mb-[38px] border-2 ${quantity === 0 ? 'border-transparent': ' border-Red' } transition-colors`}
+          className={`rounded-lg mb-[38px] border-2 ${productQuantity === 0 ? 'border-transparent': ' border-Red' } transition-colors`}
           src={image.mobile}
           alt={name}
         />
       </picture>
 
-      {quantity === 0 ? (
+      {productQuantity === 0 ? (
         <button
           onClick={addProduct}
           className='border border-Red w-40 rounded-full bg-Rose-50 p-3 flex justify-center gap-2 absolute inset-x-0 top-[190px] desktop:top-[210px] mx-auto cursor-pointer'
@@ -68,7 +77,7 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
             src='/assets/images/icon-decrement-quantity.svg'
             alt='icon-decrement-quantity'
           />
-          <p className='font-semibold text-sm'>{quantity}</p>
+          <p className='font-semibold text-sm'>{productQuantity}</p>
           <img
             onClick={addOneItem}
             className='cursor-pointer border border-Rose-50 size-[18px] rounded-full p-1'
@@ -79,7 +88,7 @@ export const ProductCard = ({ image, category, name, price }: Product) => {
       )}
       <p className='text-Rose-500 text-sm'>{category}</p>
       <h2 className='font-semibold'>{name}</h2>
-      <p className='text-Red font-semibold'>${price}</p>
+      <p className='text-Red font-semibold'>${price.toFixed(2)}</p>
     </div>
   );
 };

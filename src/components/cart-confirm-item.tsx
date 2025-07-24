@@ -1,18 +1,20 @@
-export const CartConfirmItem = () => {
+import type { CartItem } from '../types/types'
+
+export const CartConfirmItem = ({name, image, price, quantity}: CartItem) => {
   return (
     <div className='border-1 border-transparent border-b-Rose-300 text-sm py-4'>
       <div className='flex justify-between items-center px-4'>
         <div className='flex gap-4'>
-          <img className='size-12' src="/assets/images/image-baklava-thumbnail.jpg" alt="" />
+          <img className='size-12' src={image.thumbnail} alt="" />
           <div>
-            <h3 className='font-bold'>Vanilla Panna</h3>
+            <h3 className='font-bold'>{name}</h3>
             <div className='flex gap-2'>
-              <p className='text-Red font-semibold'>1x</p>
-              <p className='text-Rose-500'>@$6.50</p>
+              <p className='text-Red font-semibold'>{quantity}x</p>
+              <p className='text-Rose-500'>@${price.toFixed(2)}</p>
             </div>
           </div>
         </div>
-        <p className='font-bold text-Rose-900'>$13</p>
+        <p className='font-bold text-Rose-900'>${(quantity * price).toFixed(2)}</p>
       </div>
     </div>
   )

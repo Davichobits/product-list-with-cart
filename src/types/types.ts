@@ -8,8 +8,7 @@ export interface Product {
     name: string;
     category: string;
     price: number;
-}
-
-export type CartItem = Omit<Product, 'category'> & {
     quantity: number;
 }
+
+export type CartItem = Omit<Product, 'category'>
